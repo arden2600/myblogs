@@ -10,7 +10,7 @@
 <br>
 如果想要配置成自己想使用的JDK，那么就要自己配置修改JDK版本。（配置最新JDK1.8）<br>
 maven的配置文件：用户配置和全局配置<br>
-  用户配置：   {user_home}/.m2/settings.xml 
+  用户配置：   {user_home}/.m2/settings.xml <br>
   全局配置：   {maven_home}/conf/settings.xml
 
 ---
