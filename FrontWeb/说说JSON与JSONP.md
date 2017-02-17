@@ -149,6 +149,9 @@ var henryIsAnEngineer = conference.Members[2].Engineer;
 1.如果是`协议和端口`造成的跨域问题，`前台`是无能为力来解决的。<br>
 2.在跨域问题上，域仅仅是通过`URL的首部`来识别而不会尝试判断相同的ip地址，即不会判断两个域是否在同一个ip上。<br>
 
+* jsonp可以跨域的原因:<br>
+在js中，我们直接用XMLHttpRequest请求不同域上的数据时，是不可以的。但是，在`页面上引入不同域上的js脚本文件却是可以的`，jsonp正是利用这个特性来实现的。
+<br><br>
 ---
 * jsonp是如何产生的：<br>
 其实网上关于JSONP的讲解有很多，但却千篇一律，而且云里雾里，对于很多刚接触的人来讲理解起来有些困难，小可不才，试着用自己的方式来阐释一下这个问题，看看是否有帮助。<br>
@@ -287,6 +290,16 @@ flightHandler({
  </html>  
 ```
 <br>
+或者按照如下方式使用：<br>
+```javascript
+<script>
+$.getJSON('http://example.com/data.jsp?callback=?',function(jasondata){
+    //处理jsondata
+});
+</script>
+```
+原理是一样的，只不过我们不需要手动的插入script标签以及定义回掉函数。jquery会自动生成一个全局函数来替换callback=?中的问号，之后获取到数据后又会自动销毁，实际上就是起一个临时代理函数的作用。$.getJSON方法会自动判断是否跨域，不跨域的话，就调用普通的ajax方法；跨域的话，则会以异步加载js文件的形式来调用jsonp的回调函数。
+<br><br>
 ## 总结<br>
 * ajax和jsonp这两种技术在调用方式上“看起来”很像，目的也一样，都是请求一个url，然后把服务器返回的数据进行处理，因此jquery和ext等框架都把jsonp作为ajax的一种形式进行了封装；<br>
 * 但ajax和jsonp其实本质上是不同的东西。**ajax的核心是通过XmlHttpRequest获取非本页内容，而jsonp的核心则是动态添加\<script\>标签来调用服务器提供的js脚本**。<br>
