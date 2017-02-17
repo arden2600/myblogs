@@ -99,4 +99,13 @@ var conference = {
 
 var henryIsAnEngineer = conference.Members[2].Engineer;
 ```
-## 什么是JSONP?
+## 什么是JSONP?<br>
+* 先说说什么是同源策略，该策略是jsonp产生的原因:<br>
+
+---
+| URLA | URLB | 说明 | 是否允许通讯 | 
+|http://www.example.com/a.js| http://www.example.com/b.js|同一域名下|允许|
+---
+* jsonp是如何产生的：<br>
+其实网上关于JSONP的讲解有很多，但却千篇一律，而且云里雾里，对于很多刚接触的人来讲理解起来有些困难，小可不才，试着用自己的方式来阐释一下这个问题，看看是否有帮助。<br>
+1.众所周知的问题，Ajax直接请求普通文件存在跨域无权访问的问题，不管是静态页面、动态页面、web服务、WCF,只要是跨域请求，一律不准。
