@@ -103,9 +103,13 @@ var henryIsAnEngineer = conference.Members[2].Engineer;
 * 先说说什么是同源策略，该策略是jsonp产生的原因:<br>
 
 ---
-URL:www.a.com/a.js<br>www.a.com/b.js
-说明: 同一个域名下
-是否允许通信:允许
+URL:
+    www.a.com/a.js<br>www.a.com/b.js
+说明: 
+    同一个域名下
+是否允许通信:
+    允许
+
 ---
 * jsonp是如何产生的：<br>
 其实网上关于JSONP的讲解有很多，但却千篇一律，而且云里雾里，对于很多刚接触的人来讲理解起来有些困难，小可不才，试着用自己的方式来阐释一下这个问题，看看是否有帮助。<br>
