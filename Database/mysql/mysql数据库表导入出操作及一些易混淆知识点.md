@@ -12,17 +12,23 @@
     导入格式: `mysql -hlocalhost -uroot database < input_table.sql` 便可以将input_table.sql中sql语句导入mysql并执行。<br>
 <br>
  * 以下是数据库结构或者数据相关内容具体操作例子:<br>
-   * 导出整个数据库<br>
+  * 导出整个数据库<br>
     **命令:** mysqldump -h数据库主机Ip -u用户名 -p密码 数据库名称 > 导出的文件名<br>
-    C:\>mysqldump -hlocalhost -uroot -pmysql test > C:\test.sql<br>
-   * 导出一个表或者多个表，包括表结构和数据<br>
+    path>mysqldump -hlocalhost -uroot -pmysql test > path:\test.sql<br>
+    <br>
+  * 导出一个表或者多个表，包括表结构和数据<br>
     **命令：**mysqldump -h数据库主机Ip -u用户名 -p密码 数据库名称 表名1 表明2 > 导出的文件名<br>
     C:\> mysqldump -hlocalhost -uroot -pmysql test table1 table2 > c:\test_table.sql<br>
-   * 若是只是想仅仅导出数据库或者表的结构，不需要数据，那么可以添加`-d`参数<br>
+  * 若是只是想仅仅导出数据库或者表的结构，不需要数据，那么可以添加`-d`参数<br>
     导出一个数据库结构: mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 > 导出的文件名<br>
     导出数据库中表的结构:mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 表名1 表明2 > 导出的文件名。<br>
-    数据库和表结构的导出相差不大，仅仅是添加-d参数即可。<br>
+    数据库和表结构的导出相差不大，仅仅是添加-d参数即可。
 <br>
+---
+
+
+
+---
 ## mysql一些混淆知识点总结:<br>
  总结一些mysql一些基础的，不注意会容易混淆的知识点。
  * **char和varchar的区别，特点:**<br>
