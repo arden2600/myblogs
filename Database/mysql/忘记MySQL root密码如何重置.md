@@ -13,10 +13,10 @@
 </table>
 ---
   * 首先应该先停止mysqld服务。(mysqld为安装mysql设定的服务进程名称)<br>
-  ```linux
+```linux
   # ps -ef|grep mysql
   # service mysqld stop
-  ```
+```
   <br>其中mysqld是在安装mysql后，安装目录中子目录support-files/mysql.server服务名。也是可以由用户自定义的。<br>
   * 将所有关于mysql的进程清理(pid为mysqld服务进程号)<br>
   ```linux
