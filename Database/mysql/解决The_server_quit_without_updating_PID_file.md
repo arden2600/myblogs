@@ -4,7 +4,7 @@
 `The server quit without updating PID file (....)`,则可以参考以下解决方案:<br>
 <br>
   * 启动mysql时候，出现以下错误:<br>
-  ![image](https://github.com/arden2600/myblogs/blob/master/Database/mysql/images/mysql_start_fail_1.png)
+  ![image](https://github.com/arden2600/myblogs/blob/master/Database/mysql/images/mysql_start_fail_1.png) <br>
   这个时候呢，需要将之前/etc/mysql下my.cnf配置文件(如果存在)备份后删除。或者是将一些与用户名环境相关的配置文件也删除掉<br>
 ```linux
 # cd /etc/mysql
@@ -13,7 +13,7 @@
 ```
 <br>
   * 尝试重启mysql服务，出现以下错误:<br>
-  ![image](https://github.com/arden2600/myblogs/blob/master/Database/mysql/images/mysql_start_fail_2.png)
+  ![image](https://github.com/arden2600/myblogs/blob/master/Database/mysql/images/mysql_start_file_2.png)<br>
   这个时候，需要使用命令`cd /usr/local/mysql/data`进入mysql安装目录的data子目录：<br>
   在通过`la`命令可以看到如下有`ib_log*`开头的文件:<br>
   ![image](https://github.com/arden2600/myblogs/blob/master/Database/mysql/images/mysql_data_list.png)
