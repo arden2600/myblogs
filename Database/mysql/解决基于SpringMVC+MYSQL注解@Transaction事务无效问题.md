@@ -21,7 +21,8 @@
   <br>
   上面代码块使用了基于@Transaction注解事务进行回滚，测试设置：使得在删除前面两个方法成功后，让最后第三个方法在执行操作数据库时候抛出异常。正常情况下会进行事务回滚，即前面两个方法操作的修改会被undo还原。但是在测试时候发现没有进行事务回滚。>_<|||..... <br>
   之后，在代码逻辑与事务注解规范都没有问题的情况下，检查了配置文件applicationContext.xml全局配置文件。<br>
-  <br>
+<br>
+  
   
   
   * applicationContext.xml全局配置文件:<br> 
@@ -46,6 +47,7 @@
 <br>
 大体看上去，mvc的配置文件也没有什么异常，但是列，注意到mvc配置文件里面与全局配置文件里面有段相同的代码`<context:component-scan base-package="com.xiansky"/>`,就是这段配置配置IOC容器bean扫描路径的代码。<br>
 之后，结合了一片文章，该篇文章在[这里](http://blog.csdn.net/z69183787/article/details/37819831) ,更加深刻的了解到了，当web容器启动的时候，若是项目中同时使用了`spring`和`springmvc`的话，那么会初始化`两个容器`，**父子级别的容器**。在容器装配bean的时候会根据配置的扫描包进行装配。问题就是出现在这了，对项目的`com.xiansky`目录下的包进行了`两次扫描`装配bean。<br>
+<br>
 **第一次**是在读取applicationContext配置文件时候，对应的父容器。**第二次**springmvc配置文件对应的子容器。<br>
 所以，回过头看看上面的配置：注意到上述的配置文件：<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" /> 该段配置事务注解是放在applicationContext中，即`只是对父容器中扫描的类具有注解事务功能`，在springMVC中的配置并没有配置该内容，所以造成了：<br>
 `在第一次扫描装配bean的时候，bean是具有事务功能的`。但是在springmvc容器的二次扫描重新装配，会**覆盖父类**容器中具有事务功能的bean，因为在mvc配置文件中没有开启事务管理，所以导致了，在上面的`service层的Service.java类被springmvc子容器装配，失去了事务回滚机制功能`。<br>
