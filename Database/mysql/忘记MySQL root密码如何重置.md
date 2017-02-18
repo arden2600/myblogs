@@ -23,12 +23,12 @@
     # ps -ef|grep mysqld
     # kill -s 9 pid
   ```
-    若是不想强制删除，也可以是用`service mysqld stop`进行停止mysql服务进程。<br>
+  <br>若是不想强制删除，也可以是用`service mysqld stop`进行停止mysql服务进程。<br>
   * 以`mysqld_safe`模式启动mysql:<br>
   ```linux
   # mysqld_safe --skip-grant-tables &
   ```
-  若是没有将mysql主目录/bin路径配置到$PATH系统变量中，那么需要进入bin路径下执行该命令。执行完之后，若是出现错误:`mysqld_safe mysqld from pid file /var/run/mysqld/mysqld.pid ended',则是表明mysqld/-safe进程启动失败，可以查看日志，解决办法参考[这里](http://www.ithov.com/server/130920.shtml).<br>
+ <br>若是没有将mysql主目录/bin路径配置到$PATH系统变量中，那么需要进入bin路径下执行该命令。执行完之后，若是出现错误:`mysqld_safe mysqld from pid file /var/run/mysqld/mysqld.pid ended',则是表明mysqld/-safe进程启动失败，可以查看日志，解决办法参考[这里](http://www.ithov.com/server/130920.shtml).<br>
   * 进入mysql（注意现在是没有权限操作mysql表的）<br>
   ```linux
   #mysql -h localhost -uroot
@@ -40,26 +40,27 @@
   mysql> desc user;
   ```
   可以看到如下内容:<br>
-  ![image](https://github.com/arden2600/myblogs/blog/master/Database/mysql/images/forget-mysql-root-password.png)
+  ![image](https://github.com/arden2600/myblogs/blob/master/Database/mysql/images/forget-mysql-root-password.png)
   <br>
   * 设置密码:(code为自定义密码)<br>
   ```sql
   mysql> update user set authentication_string=PASSWORD('code') where user='root';
   ```
-  **刷新权限:**<br>
+  <br>**刷新权限:**<br>
   ```sql
   mysql> flush privileges;
   mysql> quit;
   ```
-  退出。<br>
+  <br>退出。<br>
   * 重新登陆mysqld服务,root登陆:<br>
   ```linux
   # service mysqld start
   # mysql -hlocalhost -uroot -p
   Enter password:
   ```
+  <br>
   * 当在上一步设定密码，退出重新登陆之后，再一次 mysql server模式确定设置密码:<br>
   ```sql
   mysql> SET PASSWORD=PASSWORD('code')
   ```
-  至此，root密码设定成功。主要注意的就是最新的MySQL5.7密码安全的设置有些小小改动，安装过程参照`README.TXT`也是可以知道小变动。
+  <br>至此，root密码设定成功。主要注意的就是最新的MySQL5.7密码安全的设置有些小小改动，安装过程参照`README.TXT`也是可以知道小变动。
