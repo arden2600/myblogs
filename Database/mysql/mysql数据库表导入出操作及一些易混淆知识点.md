@@ -12,32 +12,32 @@
     导入格式: `mysql -hlocalhost -uroot database < input_table.sql` 便可以将input_table.sql中sql语句导入mysql并执行。<br>
 <br>
  * 以下是数据库结构或者数据相关内容具体操作例子:<br>
-    * 导出 整个数据库
+   * 导出整个数据库<br>
     **命令:** mysqldump -h数据库主机Ip -u用户名 -p密码 数据库名称 > 导出的文件名<br>
     C:\>mysqldump -hlocalhost -uroot -pmysql test > C:\test.sql<br>
-    * 导出一个表或者多个表，包括表结构和数据<br>
+  * 导出一个表或者多个表，包括表结构和数据<br>
     **命令：**mysqldump -h数据库主机Ip -u用户名 -p密码 数据库名称 表名1 表明2 > 导出的文件名<br>
     C:\> mysqldump -hlocalhost -uroot -pmysql test table1 table2 > c:\test_table.sql<br>
-    * 若是只是想仅仅导出数据库或者表的结构，不需要数据，那么可以添加`-d`参数<br>
+  * 若是只是想仅仅导出数据库或者表的结构，不需要数据，那么可以添加`-d`参数<br>
     导出一个数据库结构: `mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 > 导出的文件名`<br>
     导出数据库中表的结构:`mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 表名1 表明2 > 导出的文件名`<br>
-    
+ <br>   
 ## mysql中一些容易混淆知识点总结<br>
 总结一些mysql一些基础的，不注意会容易混淆的知识点。
-  * char和varchar的区别，特点:<br>
+ * char和varchar的区别，特点:<br>
   VERCHAR是一个可变长度的字符串。<br>
   CHAR是一个定长的字符串。<br>
   首先我们在是用char或者varchar时候，必须指定长度，例如char(20),verchar(20)。<br>
   如果存储字符串长度为5，那么char就会在系统内存中开辟20个长度来存储长度为5的字符串；而verchar就会自动缩减，使用5个长度来存储信息，可以节省空间。由于verchar会动态对字符串内容增加缩减，那么会对性能有些影响，相对而言，在某种程度上，char性能更高，但适用性verchar更普遍。<br>
-  * Timestamp与Datetime类型区别:<br>
+ * Timestamp与Datetime类型区别:<br>
   Timestamp在进行insert操作时候，若是`没有赋值，则会取系统当前时间值`。<br>
   如果对记录进行update操作，没有处理timestamp字段，那么它的值也就修改为当前系统时间，从而记录这条记录修改时间。<br>
   Datetime字段，若是没有主动直接赋值的话，那么默认就是null值。<br>
   * **drop table 与delete table 以及 truncate table区别**<br>
-    * 若是在处理内容方面不同：<br>
+   * 若是在处理内容方面不同：<br>
       Drop table是用于删除表结构。Delete table是删除表的数据，不删除表结构。Truncate table 也是用于删除表中记录。<br>
       <br>
-    * 那么同样是删除数据库表数据的delete与truncate table的区别在那里?<br>
+   * 那么同样是删除数据库表数据的delete与truncate table的区别在那里?<br>
     1.delete from**`是一条一条记录删除`**。`truncate table它的作用是先将表结构直接删除，那么数据也没有了。然后在重新创建表结构`。<br>
     2.两者处理数据的方式不同，从而导致两者在处理数据性能上的差异：`在删除所有数据操作上，truncate性能更高。`<br>
     3.事务上：`delete`是DML语句，`是受事务控制`的：在一个事务氛围控制内，若是delete from删除指定表中数据，可以通过rollback回滚恢复删除内容的。<br>
