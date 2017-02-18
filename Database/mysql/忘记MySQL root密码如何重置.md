@@ -17,50 +17,49 @@
   # ps -ef|grep mysql
   # service mysqld stop
 ```
-  <br>其中mysqld是在安装mysql后，安装目录中子目录support-files/mysql.server服务名。也是可以由用户自定义的。<br>
+  其中mysqld是在安装mysql后，安装目录中子目录support-files/mysql.server服务名。也是可以由用户自定义的。<br>
   * 将所有关于mysql的进程清理(pid为mysqld服务进程号)<br>
-  ```linux
+```linux
     # ps -ef|grep mysqld
     # kill -s 9 pid
-  ```
-  <br>若是不想强制删除，也可以是用`service mysqld stop`进行停止mysql服务进程。<br>
+```
+若是不想强制删除，也可以是用`service mysqld stop`进行停止mysql服务进程。<br>
   * 以`mysqld_safe`模式启动mysql:<br>
-  ```linux
+```linux
   # mysqld_safe --skip-grant-tables &
-  ```
- <br>若是没有将mysql主目录/bin路径配置到$PATH系统变量中，那么需要进入bin路径下执行该命令。执行完之后，若是出现错误:`mysqld_safe mysqld from pid file /var/run/mysqld/mysqld.pid ended',则是表明mysqld/-safe进程启动失败，可以查看日志，解决办法参考[这里](http://www.ithov.com/server/130920.shtml).<br>
+```
+若是没有将mysql主目录/bin路径配置到$PATH系统变量中，那么需要进入bin路径下执行该命令。执行完之后，若是出现错误:`mysqld_safe mysqld from pid file /var/run/mysqld/mysqld.pid ended`,则是表明mysqld/-safe进程启动失败，可以查看日志，解决办法参考[这里](http://www.ithov.com/server/130920.shtml).<br>
   * 进入mysql（注意现在是没有权限操作mysql表的）<br>
-  ```linux
+```linux
   #mysql -h localhost -uroot
-  ```
+```
   * 这个时候就可以修改root密码：(注意mysql5.7的user表的密码字段改变了)<br>
   可以查看user表中密码字段:<br>
-  ```sql
+```sql
   mysql> use mysql;
   mysql> desc user;
-  ```
+```
   可以看到如下内容:<br>
   ![image](https://github.com/arden2600/myblogs/blob/master/Database/mysql/images/forget-mysql-root-password.png)
   <br>
   * 设置密码:(code为自定义密码)<br>
-  ```sql
+```sql
   mysql> update user set authentication_string=PASSWORD('code') where user='root';
-  ```
-  <br>**刷新权限:**<br>
-  ```sql
+```
+**刷新权限:**<br>
+```sql
   mysql> flush privileges;
   mysql> quit;
-  ```
-  <br>退出。<br>
+```
+退出。<br>
   * 重新登陆mysqld服务,root登陆:<br>
-  ```linux
+```linux
   # service mysqld start
   # mysql -hlocalhost -uroot -p
   Enter password:
-  ```
-  <br>
+```
   * 当在上一步设定密码，退出重新登陆之后，再一次 mysql server模式确定设置密码:<br>
-  ```sql
+```sql
   mysql> SET PASSWORD=PASSWORD('code')
-  ```
-  <br>至此，root密码设定成功。主要注意的就是最新的MySQL5.7密码安全的设置有些小小改动，安装过程参照`README.TXT`也是可以知道小变动。
+```
+至此，root密码设定成功。主要注意的就是最新的MySQL5.7密码安全的设置有些小小改动，安装过程参照`README.TXT`也是可以知道小变动。
