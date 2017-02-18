@@ -1,7 +1,7 @@
 ## 解决基于SpringMVC+MYSQL注解@Transaction事务无效问题:<br>
 最近在使用springmvc结合mysql开发时候，遇到一个问题，基于注解的事务配置在程序运行中事务无效，即不进行事务回滚。如今mysql5.6版本都是使用Innodb存储引擎的，该引擎默认支持事务回滚的。下面说说如何解决该问题......<br>
 
-  * 【代码块-service layout】Service.java
+ * 【代码块-service layout】Service.java
   ```java
   @Transactional(rollbackFor=Exceptions.class)
   public Map<String,Object> deleteStaffByIds(Long currentStaffId,List<Long> staffsIdList,
