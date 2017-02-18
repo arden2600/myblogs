@@ -1,19 +1,19 @@
 ## mysql表结构和数据命令行的导入导出<br>
 有时候需要在命令行对mysql数据库表和表内数据进行导入导出，那么可以是用mysqlsump命令来操作。<br>
 <br>
-  * 导出表结构和数据:<br>
-  操作格式: `mysqldump -uroot -ppassword database table1 table2 >  foo.sql` <br>
+ * 导出表结构和数据:<br>
+ 操作格式: `mysqldump -uroot -ppassword database table1 table2 >  foo.sql` <br>
   这样可以将数据库database中的表table1，table2以sql形式导出到foo.sql文件中。其中`-uroot`参数表示访问数据库的用户名是root,如果还有密码，则可以是用`-p`参数加上密码即可。<br>
 ```shell
   path> mysqldump -uroot -pmysql output_table > c:\mysqldata\output_table.sql
 ```
-  * 导入数据或者数据库到mysql<br>
+ * 导入数据或者数据库到mysql<br>
     mysql数据导入也是很方便的，主要的就是注意导入的sql文件内容的正确性，还要注意文件内容的编码，不然会出现乱码。<br>
     导入格式: `mysql -hlocalhost -uroot database < input_table.sql` 便可以将input_table.sql中sql语句导入mysql并执行。<br>
 <br>
-  * 以下是数据库结构或者数据相关内容具体操作例子:<br>
+ * 以下是数据库结构或者数据相关内容具体操作例子:<br>
     * 导出 整个数据库
-    **命令: **mysqldump -h数据库主机Ip -u用户名 -p密码 数据库名称 > 导出的文件名<br>
+    **命令:** mysqldump -h数据库主机Ip -u用户名 -p密码 数据库名称 > 导出的文件名<br>
     C:\>mysqldump -hlocalhost -uroot -pmysql test > C:\test.sql<br>
     * 导出一个表或者多个表，包括表结构和数据<br>
     **命令：**mysqldump -h数据库主机Ip -u用户名 -p密码 数据库名称 表名1 表明2 > 导出的文件名<br>
@@ -38,7 +38,7 @@
       Drop table是用于删除表结构。Delete table是删除表的数据，不删除表结构。Truncate table 也是用于删除表中记录。<br>
       <br>
     * 那么同样是删除数据库表数据的delete与truncate table的区别在那里?<br>
-    1.delete from**`是一条一条记录删除`**。`**truncate table它的作用是先将表结构直接删除，那么数据也没有了。然后在重新创建表结构`。**<br>
+    1.delete from**`是一条一条记录删除`**。`truncate table它的作用是先将表结构直接删除，那么数据也没有了。然后在重新创建表结构`。<br>
     2.两者处理数据的方式不同，从而导致两者在处理数据性能上的差异：`在删除所有数据操作上，truncate性能更高。`<br>
     3.事务上：`delete`是DML语句，`是受事务控制`的：在一个事务氛围控制内，若是delete from删除指定表中数据，可以通过rollback回滚恢复删除内容的。<br>
       `truncate` 是DCL语句，`不受事务控制`。意味着在删除表记录后，通常是不能通过事务回滚方式来恢复表记录的。<br>
