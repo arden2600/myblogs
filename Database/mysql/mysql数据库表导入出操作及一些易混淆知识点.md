@@ -22,14 +22,15 @@
     导出一个数据库结构: `mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 > 导出的文件名`<br>
     导出数据库中表的结构:`mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 表名1 表明2 > 导出的文件名`。<br>
  <br>
+ <br>
 ## mysql中一些容易混淆知识点总结<br>
-总结一些mysql一些基础的，不注意会容易混淆的知识点。
- * char和varchar的区别，特点:<br>
+ 总结一些mysql一些基础的，不注意会容易混淆的知识点。
+ * **char和varchar的区别，特点:**<br>
   VERCHAR是一个可变长度的字符串。<br>
   CHAR是一个定长的字符串。<br>
   首先我们在是用char或者varchar时候，必须指定长度，例如char(20),verchar(20)。<br>
   如果存储字符串长度为5，那么char就会在系统内存中开辟20个长度来存储长度为5的字符串；而verchar就会自动缩减，使用5个长度来存储信息，可以节省空间。由于verchar会动态对字符串内容增加缩减，那么会对性能有些影响，相对而言，在某种程度上，char性能更高，但适用性verchar更普遍。<br>
- * Timestamp与Datetime类型区别:<br>
+ * **Timestamp与Datetime类型区别:**<br>
   Timestamp在进行insert操作时候，若是`没有赋值，则会取系统当前时间值`。<br>
   如果对记录进行update操作，没有处理timestamp字段，那么它的值也就修改为当前系统时间，从而记录这条记录修改时间。<br>
   Datetime字段，若是没有主动直接赋值的话，那么默认就是null值。<br>
@@ -42,12 +43,12 @@
     2.两者处理数据的方式不同，从而导致两者在处理数据性能上的差异：`在删除所有数据操作上，truncate性能更高。`<br>
     3.事务上：`delete`是DML语句，`是受事务控制`的：在一个事务氛围控制内，若是delete from删除指定表中数据，可以通过rollback回滚恢复删除内容的。<br>
       `truncate` 是DCL语句，`不受事务控制`。意味着在删除表记录后，通常是不能通过事务回滚方式来恢复表记录的。<br>
- * having 与 where的区别:<br>
+ * **having 与 where的区别:**<br>
     1.**使用位置不同**：where是在group by之前使用的，而having是在group by之后使用。<br>
     2.**是否可以使用分组函数**: where后面不可以使用分组函数，而having后面可以使用分组函数。<br>
 <br>
- * 常见query关键字执行顺序：select [..] from [table]  where [conditions] group by [..] having [conditions]  order by [...]<br>
-  **select语句解析顺序**:<br>
+ * **常见query关键字执行顺序：select [..] from [table]  where [conditions] group by [..] having [conditions]  order by [...]**<br>
+  select语句解析顺序:<br>
   1.0 From 表  ：先执行from语句查询指定表。代表从那张表中查询数据，指定数据源。<br>
   2.0 where条件：通过where关键字后的条件过滤一部分数据，将表中所有不符合条件记录过滤掉。<br>
   3.0 Group by ：得到的表记录中，根据指定字段进行分组。<br>
