@@ -23,8 +23,9 @@
   之后，在代码逻辑与事务注解规范都没有问题的情况下，检查了配置文件applicationContext.xml全局配置文件。<br>
 <br>
   
-  
-  
+
+
+---
   * applicationContext.xml全局配置文件:<br> 
 ```xml
 <!--设置需要进行spring注解扫描的类包-->
