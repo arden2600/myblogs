@@ -20,9 +20,9 @@
     C:\> mysqldump -hlocalhost -uroot -pmysql test table1 table2 > c:\test_table.sql<br>
   * 若是只是想仅仅导出数据库或者表的结构，不需要数据，那么可以添加`-d`参数<br>
     导出一个数据库结构: `mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 > 导出的文件名`<br>
-    导出数据库中表的结构:`mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 表名1 表明2 > 导出的文件名`<br>
- <br>   
-## mysql中一些容易混淆知识点总结<br>
+    导出数据库中表的结构:`mysqldump -h数据库主机Ip -u用户名 -p密码 -d 数据库名称 表名1 表明2 > 导出的文件名`。<br>
+ <br>
+ ## mysql中一些容易混淆知识点总结<br>
 总结一些mysql一些基础的，不注意会容易混淆的知识点。
  * char和varchar的区别，特点:<br>
   VERCHAR是一个可变长度的字符串。<br>
@@ -33,7 +33,7 @@
   Timestamp在进行insert操作时候，若是`没有赋值，则会取系统当前时间值`。<br>
   如果对记录进行update操作，没有处理timestamp字段，那么它的值也就修改为当前系统时间，从而记录这条记录修改时间。<br>
   Datetime字段，若是没有主动直接赋值的话，那么默认就是null值。<br>
-  * **drop table 与delete table 以及 truncate table区别**<br>
+   **drop table 与delete table 以及 truncate table区别？**<br>
    * 若是在处理内容方面不同：<br>
       Drop table是用于删除表结构。Delete table是删除表的数据，不删除表结构。Truncate table 也是用于删除表中记录。<br>
       <br>
