@@ -190,10 +190,10 @@
     </build>
 
 </project>
-  ```
+ ```
 <br>
-  * JAVA POJO 对象:<br>
-  这里参考晚上使用了学生和老师，班级三者关系来进行设计。pojo类中的一对多，多对多，多对一都是重要表关联关系<br>
+  * JAVA POJO 对象:<br>
+  这里参考网上使用了学生和老师，班级三者关系来进行设计。pojo类中的一对多，多对多，多对一都是重要表关联关系<br>
   **班级类(Classes)** <br>
 ```java
 public class Classes{
@@ -317,7 +317,7 @@ public class ClassAndTeacherTest {
 
 ```
 <br>
-    * 仅仅查询classes内容，不显式的访问classes关联的老师和学生属性信息:<br>
+    **仅仅查询classes内容，不显式的访问classes关联的老师和学生属性信息:**<br>
     根据查询的班级classes内容，是否查询关联的其他表信息，观察sql输出信息,只有一条sql，只是进行了一次sql查询。<br>
 ```java
 ClassesDao mapper = session.getMapper(ClassesDao.class);
@@ -332,7 +332,7 @@ System.out.println(clazz2.getName()); //仅仅查询classes内容
 class_a
 ```
 <br>
-    * 不仅仅查询classes内容，还关联查询教师和学生信息<br>
+    **不仅仅查询classes内容，还关联查询教师和学生信息**<br>
     通过classes实体对应的班级表进行了关联查询,可以看到进行了三次sql查询。因为显式的查询了，所以进行了sql查询。<br>
 ```java
 ClassesDao mapper = session.getMapper(ClassesDao.class);
