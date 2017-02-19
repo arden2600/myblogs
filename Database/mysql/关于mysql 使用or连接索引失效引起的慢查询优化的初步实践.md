@@ -48,6 +48,6 @@ ORDER BY m.vc_create_time DESC LIMIT 1,15
 <br>
 查询仅仅花费了60ms左右，比刚开始的6/7s而言，快了太多了。使用explain查询执行计划信息如下图:<br>
 ![image](https://github.com/arden2600/myblogs/blob/master/Database/mysql/images/op_mysql_search_explain_2016-12-26.png) <br>
-在商户表和店铺表之间，内部嵌套使用一个eq_ref类型扫描查询。大部分性能的提升跟他就有关系了。两次查询计划仅仅就是使用了eq_ref类型查询。那么eq_ref是什么东东呢。关于eq_ref的介绍，这里有篇文章说得挺好：[http://www.cnblogs.com/heat-man/p/4945708.html](http://www.cnblogs.com/heat-man/p/4945708.html) <br>
+在商户表和店铺表之间，内部嵌套使用一个eq_ref类型扫描查询。大部分性能的提升跟他就有关系了。两次查询计划仅仅就是使用了eq_ref类型查询。那么eq_ref是什么东东呢。通过sql可以看到，外部查询后内部子查询中，都共同有个`t_merchants m`这个商户表，`个人猜测是在执行内部查询时候，没得到一条满足条件的商户表id，就会记录到类似缓冲中，就通过索引对商户表满足查询条件的记录进行了标记。当内部子查询查询完之后，外部查询立马就能load出满足条件的记录。`关于eq_ref的介绍，这里有篇文章说得挺好：[http://www.cnblogs.com/heat-man/p/4945708.html](http://www.cnblogs.com/heat-man/p/4945708.html) <br>
 <br>
 sql就是博大精深，所以在写sql的时候，有空闲或者有精力的情况下，可以使用explain来看看执行计划，说不定可以发现可以优化的空间，何乐不为赛~
