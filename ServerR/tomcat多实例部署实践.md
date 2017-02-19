@@ -6,27 +6,27 @@ apache真是牛逼的，搞了很多成功有用的项目。tomcat服务器通�
 以下只是说说实际动手操作的过程与结果:(仅供参考哈)<br>
   * 下载tomcat压缩包并解压创建以下目录结构:<br>
   主文件夹为tomcat7<br>
-<hr>
->tomcat7
->>apache-tomcat-7.0.53(解压后tomcat)
->>tomcat-ins(多实例部署主文件夹)
->>>application01(应用1)
->>>>conf(从apache-tomcat-7.0.53处复制修改端口)
->>>>logs
->>>>temp
->>>>webapps
->>>>springmvc(应用项目)
->>>>work
->>>>start.bat(该应用启动脚本)
->>>application02(应用2)
->>>>conf(从apache-tomcat-7.0.53处复制修改端口)
->>>>logs
->>>>temp
->>>>webapps
->>>>springmvc(应用项目)
->>>>work
->>>>start.bat(该应用启动脚本)
-<hr>
+```xml
+--tomcat7
+  --apache-tomcat-7.0.53(解压后tomcat)
+  --tomcat-ins(多实例部署主文件夹)
+    --application01(应用1)
+      --conf(从apache-tomcat-7.0.53处复制修改端口)
+      --logs
+      --temp
+      --webapps
+        --springmvc(应用项目)
+      --work
+      --start.bat(该应用启动脚本)
+    --application02(应用2)
+      --conf(从apache-tomcat-7.0.53处复制修改端口)
+      --logs
+      --temp
+      --webapps
+        --springmvc(应用项目)
+      --work
+      --start.bat(该应用启动脚本)
+```
 <br>
 其中，在tomcat-ins目录下创建实例的时候，除了将conf目录从解压后tomcat的下载包中复制过来，其他的子文件可以通过mkdir命令创建。(windows版本)可以通过`tree`指令在cmd控制台查看项目的结构<br>
 
